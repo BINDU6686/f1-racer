@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Driver Details</h1>
+    <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3>{{ driver.driver_name }}</h3>
+            <div>
+                <!-- Edit Button -->
+                <a href="" class="btn btn-warning btn-sm me-2">Edit</a>
+                <!-- Delete Button -->
+                <a href="" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this driver?');">Delete</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Age:</strong> {{ driver.age }}</li>
+                <li class="list-group-item"><strong>Finishing Position in Previous Season:</strong> {{ driver.finishing_position_in_previous_season }}</li>
+                <li class="list-group-item"><strong>Total Pole Positions:</strong> {{ driver.total_pole_position }}</li>
+                <li class="list-group-item"><strong>Total Race Wins:</strong> {{ driver.total_race_wins }}</li>
+                <li class="list-group-item"><strong>Total Constructor Titles:</strong> {{ driver.total_constructor_titles }}</li>
+                <li class="list-group-item"><strong>Total Points Scored:</strong> {{ driver.total_points_scored }}</li>
+                <li class="list-group-item"><strong>Created By:</strong> {{ driver.created_by }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
