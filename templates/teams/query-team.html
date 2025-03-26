@@ -1,5 +1,58 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1> query team table  </h1>
+
+<div class="d-flex justify-content-end m-3">
+    {% if request.cookies.get("token", None) %}
+    <a href="{{ url_for('add_team') }}" class="btn btn-primary me">Add Team</a>
+    {% endif %}
+    <a href="{{ url_for('get_teams_comparison') }}" class="btn btn-warning">Driver Comparison</a>
+</div>
+<div class="container mb-5">
+    <form action="{{ url_for('get_teams') }}" method="GET" class="row g-3">
+        <div class="col-md-4">
+            <label for="attribute" class="form-label">Select Attribute</label>
+            <select id="attribute" name="attribute" class="form-select">
+                {% for attribute in query_options.attributes %}
+                <option value="{{ attribute.value_text }}">{{ attribute.visible_text }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="col-md-4">
+            <label for="comparison" class="form-label">Comparison Type</label>
+            <select id="comparison" name="comparison" class="form-select">
+                {% for operator in query_options.operators %}
+                <option value="{{ operator.operator_symbol }}">{{ operator.visible_text }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="value" class="form-label">Enter Value</label>
+            <input type="text" id="value" name="value" class="form-control" placeholder="Enter value">
+        </div>
+        <div class="col-12 text-end mt-3">
+            <button type="submit" class="btn btn-success">Query Teams</button>
+        </div>
+    </form>
+</div>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Team Table</h1>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in teams %}
+            <tr class="click" onclick="window.location.href='{{ url_for('get_team', team_id=team.id) }}'">
+                <td>{{ team.id }}</td>
+                <td>{{ team.team_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}

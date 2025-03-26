@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Edit Team Details</h1>
+    <form method="POST" action="{{ request.url.path }}">
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endif %}
+        {% if success %}
+        <div class="alert alert-success">
+            {{ success }}
+        </div>
+        {% endif %}
+        
+        <div class="mb-3">
+            <label for="team_name" class="form-label">{{ form.team_name.label }}</label>
+            {{ form.team_name(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="year_founded" class="form-label">{{ form.year_founded.label }}</label>
+            {{ form.year_founded(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="total_pole_position" class="form-label">{{ form.total_pole_position.label }}</label>
+            {{ form.total_pole_position(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="total_race_wins" class="form-label">{{ form.total_race_wins.label }}</label>
+            {{ form.total_race_wins(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="total_constructor_titles" class="form-label">{{ form.total_constructor_titles.label }}</label>
+            {{ form.total_constructor_titles(class="form-control") }}
+        </div>
+        
+        <div class="mb-3">
+            <label for="finishing_position_in_previous_season" class="form-label">{{ form.finishing_position_in_previous_season.label }}</label>
+            {{ form.finishing_position_in_previous_season(class="form-control") }}
+        </div>
+        
+        <button type="submit" class="btn btn-warning">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

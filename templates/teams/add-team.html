@@ -1,5 +1,50 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1> add team form </h1>
+<div class="container">
+    <h1>Add Team Form</h1>
+    <form method="POST" action="{{ url_for('add_team') }}">
+        {% for error in form.team_name.errors %}
+        <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="team_name">{{ form.team_name.label }}</label>
+                {{ form.team_name(class="form-control") }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="year_founded">{{ form.year_founded.label }}</label>
+                {{ form.year_founded(class="form-control") }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="total_pole_positions">{{ form.total_pole_positions.label }}</label>
+                {{ form.total_pole_positions(class="form-control") }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="total_race_wins">{{ form.total_race_wins.label }}</label>
+                {{ form.total_race_wins(class="form-control") }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="total_constructor_titles">{{ form.total_constructor_titles.label }}</label>
+                {{ form.total_constructor_titles(class="form-control") }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="finishing_position_in_previous_season">{{ form.finishing_position_in_previous_season.label }}</label>
+                {{ form.finishing_position_in_previous_season(class="form-control") }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
 {% endblock content %}

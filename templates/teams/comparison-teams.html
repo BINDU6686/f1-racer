@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Compare teams</h1>
+
+    <form method="GET" class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="team1" class="form-label">Select team 1:</label>
+                <select id="team1" name="team1" class="form-select" required>
+                    <option value="" disabled selected>Choose team 1</option>
+                    {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="team2" class="form-label">Select team 2:</label>
+                <select id="team2" name="team2" class="form-select" required>
+                    <option value="" disabled selected>Choose team 2</option>
+                    {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Compare</button>
+        </div>
+    </form>
+    {% if team1 and team2 %}
+    <h2 class="text-center mb-3">Comparison Table</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Stat</th>
+                    <th>{{ team1.team_name }}</th>
+                    <th>{{ team2.team_name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat, better_team in comparison.items() %}
+                <tr>
+                    <td>{{ stat | capitalize }}</td>
+                    <td class="{{ 'bg-success' if better_team == 'Team 1' else '' }}">{{ team1[stat] }}</td>
+                    <td class="{{ 'bg-success' if better_team == 'Team 2' else '' }}">{{ team2[stat] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
