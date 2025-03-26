@@ -1,5 +1,5 @@
 
-from wtforms import Form, BooleanField, StringField, validators, IntegerField, FloatField
+from wtforms import Form, SelectField, StringField, validators, IntegerField, FloatField
 
 # class RegistrationForm(Form):
 #     username     = StringField('Username', [validators.Length(min=4, max=25)])
@@ -16,7 +16,7 @@ class DriverForm(Form):
     total_points_scored = FloatField("Total points scored", [validators.NumberRange(min=0.0), validators.InputRequired('Input is mandatory.')])
     total_constructor_titles = IntegerField("Total constructor titles", [validators.NumberRange(min=0), validators.InputRequired('Input is mandatory.')])
     finishing_position_in_previous_season = IntegerField("Finishing position in previous season", [validators.NumberRange(min=0), validators.InputRequired('Input is mandatory.')])
-    # driver_belong_to_team = StringField('Driver belongs to team')
+    driver_belong_to_team = SelectField('Driver belongs to team', choices=[], validators=[validators.InputRequired('Team selection is mandatory.')])
 
     
     

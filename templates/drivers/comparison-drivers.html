@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Compare Drivers</h1>
+
+    <form method="GET" class="mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="driver1" class="form-label">Select Driver 1:</label>
+                <select id="driver1" name="driver1" class="form-select" required>
+                    <option value="" disabled selected>Choose Driver 1</option>
+                    {% for driver in drivers %}
+                    <option value="{{ driver }}">{{ driver }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="driver2" class="form-label">Select Driver 2:</label>
+                <select id="driver2" name="driver2" class="form-select" required>
+                    <option value="" disabled selected>Choose Driver 2</option>
+                    {% for driver in drivers %}
+                    <option value="{{ driver }}">{{ driver }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Compare</button>
+        </div>
+    </form>
+    {% if driver1 and driver2 %}
+    <h2 class="text-center mb-3">Comparison Table</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Stat</th>
+                    <th>{{ driver1.driver_name }}</th>
+                    <th>{{ driver2.driver_name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat, better_driver in comparison.items() %}
+                <tr>
+                    <td>{{ stat | capitalize }}</td>
+                    <td class="{{ 'bg-success' if better_driver == 'Driver 1' else '' }}">{{ driver1[stat] }}</td>
+                    <td class="{{ 'bg-success' if better_driver == 'Driver 2' else '' }}">{{ driver2[stat] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

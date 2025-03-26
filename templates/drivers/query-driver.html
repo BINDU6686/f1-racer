@@ -2,27 +2,28 @@
 
 {% block content %}
 <div class="d-flex justify-content-end m-3">
-    <a href="{{ url_for('add_driver') }}" class="btn btn-primary">Add Driver</a>
+    {% if request.cookies.get("token", None) %}
+    <a href="{{ url_for('add_driver') }}" class="btn btn-primary me-2">Add Driver</a>
+    {% endif %}
+    <a href="{{ url_for('get_drivers_comparison') }}" class="btn btn-warning">Driver Comparison</a>
 </div>
 <div class="container mb-5">
     <form action="{{ url_for('get_drivers') }}" method="GET" class="row g-3">
         <div class="col-md-4">
             <label for="attribute" class="form-label">Select Attribute</label>
             <select id="attribute" name="attribute" class="form-select">
-                <option value="age">Age</option>
-                <option value="total_pole_position">Total Pole Positions</option>
-                <option value="total_race_wins">Total Race Wins</option>
-                <option value="total_points_scored">Total Points Scored</option>
-                <option value="total_constructor_titles">Constructor Titles</option>
-                <option value="finishing_position_in_previous_season">Previous Season Position</option>
+                {% for attribute in query_options.attributes %}
+                <option value="{{ attribute.value_text }}">{{ attribute.visible_text }}</option>
+                {% endfor %}
             </select>
         </div>
+        
         <div class="col-md-4">
             <label for="comparison" class="form-label">Comparison Type</label>
             <select id="comparison" name="comparison" class="form-select">
-                <option value="equals">Equals</option>
-                <option value="less_than">Less Than</option>
-                <option value="greater_than">Greater Than</option>
+                {% for operator in query_options.operators %}
+                <option value="{{ operator.operator_symbol }}">{{ operator.visible_text }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col-md-4">

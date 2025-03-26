@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles
 
 
 from f1_racer.controller import drivers, teams, authentication
-from f1_racer.firestore import initialize_firestore
 
 app = FastAPI()
 
